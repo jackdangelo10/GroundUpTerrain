@@ -1,24 +1,27 @@
 package WorldMapGeneration;
 
-import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
+import ContinentGeneration.Continent;
 
 public class WorldMap 
 {
-    private int height = 0;
-    private int width = 0;
-    private BufferedImage img;
+    private List<Continent> continents = new ArrayList<Continent>();
 
-    public WorldMap(BufferedImage image)
+    public void addContinent(Continent c)
     {
-        img = image;
+        continents.add(c);
     }
 
-    public BufferedImage getImg() {
-        return img;
+    public List<Continent> getContinents() {
+        return continents;
     }
 
-    public void setImg(BufferedImage img) {
-        this.img = img;
+    public void setContinents(List<Continent> continents) {
+        this.continents = continents;
     }
+
+    
 
 }
