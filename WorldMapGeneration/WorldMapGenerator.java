@@ -1,9 +1,5 @@
 package WorldMapGeneration;
 
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-
 import ContinentGeneration.Continent;
 import ContinentGeneration.ContinentGenerator;
 import GeneticAlgorithm.TerrainParameters;
@@ -15,33 +11,25 @@ public class WorldMapGenerator
 {
     public static WorldMap generateWorldMap(TerrainParameters param)
     {
-        WorldMap map = new WorldMap();
-
-        BufferedImage img = new BufferedImage(param.getWidth(), param.getHeight(), 
-        BufferedImage.TYPE_INT_ARGB);
-
-        List<TreeNode> heads = new ArrayList<TreeNode>();
+        WorldMap map = new WorldMap(param);
 
         for(Rectangle r : param.getRegions())
         {
             int centerX = (r.getWidth() + r.getStartX()) / 2;
             int centerY = (r.getHeight() + r.getStartY()) / 2;
 
-            TreeGenerator treeGenerator = new TreeGenerator(centerX, centerY);
+            TreeGenerator treeGenerator = new TreeGenerator(centerX, centerY, 
+                param.getMaxChildren());
             TreeNode head = new TreeNode(new Coordinates(centerX, centerY));
 
-            treeGenerator.treeGenerator(head, param.getTreeDepth());
+            treeGenerator.generateTree(head, param.getTreeDepth());
 
-            ContinentGenerator continentGenerator = new ContinentGenerator();
+            ContinentGenerator continentGenerator = new ContinentGenerator(param);
             Continent c = continentGenerator.generateContinent(head, r.getHeight(), 
                 r.getWidth());
             
-            
+            map.addContinent(c);
         }
-
-        
-
-
 
         return map;
     }

@@ -4,10 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ContinentGeneration.Continent;
+import GeneticAlgorithm.TerrainParameters;
 
 public class WorldMap 
 {
     private List<Continent> continents = new ArrayList<Continent>();
+    private TerrainParameters parameters = null;
+    
+    public WorldMap(TerrainParameters p)
+    {
+        this.parameters = p;
+    }
 
     public void addContinent(Continent c)
     {
@@ -20,6 +27,14 @@ public class WorldMap
 
     public void setContinents(List<Continent> continents) {
         this.continents = continents;
+    }
+
+    public TerrainParameters getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(TerrainParameters parameters) {
+        this.parameters = parameters;
     }
 
     

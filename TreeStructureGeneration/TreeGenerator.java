@@ -6,18 +6,19 @@ import Helper.Coordinates;
 
 public class TreeGenerator 
 {
-    private final int MAX_CHILDREN = 3;
+    private int MAX_CHILDREN = 0;
     private BranchGenerator bCalc = null;
     private boolean firstFlag = true;
 
     private static Random random = new Random();
 
-    public TreeGenerator(int centerx, int centery)
+    public TreeGenerator(int centerx, int centery, int maxChildren)
     {
         bCalc = new BranchGenerator(centerx, centery);
+        MAX_CHILDREN = maxChildren;
     }
 
-    public void treeGenerator(TreeNode head, int maxDepth)
+    public void generateTree(TreeNode head, int maxDepth)
     {
         if(maxDepth <= 0)
         {
@@ -30,7 +31,7 @@ public class TreeGenerator
             Coordinates c = bCalc.calculateNewBranchCoords(head.getX(), head.getY());
             TreeNode temp = new TreeNode(new Coordinates(c.getX(), c.getY()));
             head.addChild(temp);
-            treeGenerator(temp, maxDepth - 1);
+            generateTree(temp, maxDepth - 1);
         }
     }
 

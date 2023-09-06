@@ -25,7 +25,10 @@ public class TerrainParameters
     double maxRadiusDivisor = 0;
     double maxRadiusDepthDivisor = 0;
     double displacementModifier = 0;
+    
+    //TreeGeneration
     int treeDepth = 0;
+    int maxChildren = 0;
 
     //ContinentRegionGeneration
     int continentCount = 0;
@@ -63,6 +66,7 @@ public class TerrainParameters
         this.thetaStep = Math.random() * 45;
         this.perlinStep = Math.random() * 3;
         this.treeDepth = random.nextInt(3) + 2;
+        this.maxChildren = random.nextInt(5);
 
         this.continentCount = (int)(random.nextInt(3)) + 2;
         this.regions = generateRegions(continentCount);
@@ -272,5 +276,15 @@ public class TerrainParameters
     public void setTreeDepth(int treeDepth) {
         this.treeDepth = treeDepth;
     }
+
+    public int getMaxChildren() {
+        return maxChildren;
+    }
+
+    public void setMaxChildren(int maxChildren) {
+        this.maxChildren = maxChildren;
+    }
+
+    
     
 }

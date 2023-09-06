@@ -5,18 +5,24 @@ import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.util.Random;
 
+import GeneticAlgorithm.TerrainParameters;
 import PerlinNoise.PerlinNoise1D;
 
 public class ContinentGenerator 
 {
+    TerrainParameters parameters = null;
+
+    public ContinentGenerator(TerrainParameters param)
+    {
+        this.parameters = param;
+    }
+
+
     public Continent generateContinent(TreeNode head, int height, int width)
     {
-        //DUMMY
-        double maxRadiusDivisor = 4;
-
         
         int maxRadius = (int)(Math.floor(Math.sqrt(Math.pow(height, 2) 
-            + Math.pow(width, 2))) / maxRadiusDivisor);
+            + Math.pow(width, 2))) / parameters.getMaxRadiusDivisor());
 
         Continent c = new Continent(new Area());
         generateDepthFirstIsland(head, maxRadius, c);
@@ -25,9 +31,6 @@ public class ContinentGenerator
 
     private void generateDepthFirstIsland(TreeNode head, int maxRadius, Continent c)
     {
-        //DUMMY
-        double maxRadiusDepthDivisor = 1.2;
-
         if(head == null)
         {
             return;
@@ -41,7 +44,8 @@ public class ContinentGenerator
 
         for(TreeNode child : head.getChildren())
         {
-            generateDepthFirstIsland(child,(int)(maxRadius / (maxRadiusDepthDivisor)), c);
+            generateDepthFirstIsland(child,(int)(maxRadius / 
+                (parameters.getMaxRadiusDepthDivisor())), c);
         }
     }
 
@@ -49,12 +53,14 @@ public class ContinentGenerator
     {
         GeneralPath island = new GeneralPath();
         Random random = new Random();
-        PerlinNoise1D nse = new PerlinNoise1D(.8, 7, 
-            random.nextInt(1000), .01, 2, 256);
+        PerlinNoise1D nse = new PerlinNoise1D(parameters.getPersistence(), 
+            parameters.getOctave(), random.nextInt(1000), parameters.getFrequency(), 
+                parameters.getAmplitude(), parameters.getLatticeCount());
 
         double theta = 0;
         double radius = 0;
         double step = 0;
+
         double x = 0;
         double y = 0;
 
@@ -80,16 +86,14 @@ public class ContinentGenerator
             else
             {
                 
-                //DUMMY
-                double displacementModifier = 2;
-
                 int xMid = (int)(prevX + x) / 2;
                 int yMid = (int)(prevY + y) / 2;
                 double angle = Math.atan2(xMid - centerX, xMid - centerY);
                 double directionX = Math.cos(angle);
                 double directionY = Math.sin(angle);
 
-                int displacement = (int)(Math.random() *  displacementModifier);
+                int displacement = (int)(Math.random() *  
+                    parameters.getDisplacementModifier());
 
                 xMid += displacement*directionX;
                 yMid += displacement*directionY;
@@ -98,8 +102,8 @@ public class ContinentGenerator
                     xMid + centerX, yMid + centerY, x + centerX, y + centerY);
             }
 
-            theta += 10;
-            step += .9;
+            theta += parameters.getThetaStep();
+            step += parameters.getPerlinStep();
         }
 
         int xMid = (int)(closeX + x) / 2;
