@@ -55,11 +55,11 @@ public class Mutator
             parameters.maxChildren -= 1;
         }
 
-        while(parameters.continentCount < 2)
+        while(parameters.continentCount < 1)
         {
             parameters.continentCount += 1;
         }
-        while(parameters.continentCount > 5)
+        while(parameters.continentCount > 4)
         {
             parameters.continentCount -= 1;
         }

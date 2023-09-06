@@ -67,7 +67,7 @@ public class TerrainParameters
         this.perlinStep = Math.random() * 3;
         this.treeDepth = random.nextInt(3) + 2;
         this.maxChildren = random.nextInt(5);
-        this.continentCount = (int)(random.nextInt(3)) + 2;
+        this.continentCount = (int)(random.nextInt(3)) + 1;
 
 
 
@@ -94,53 +94,65 @@ public class TerrainParameters
 
     private List<Rectangle> generateRegions(int continentCount)
     {
-        List<Double> proportions = generateProportions(continentCount);
-        System.out.println(continentCount);
-        System.out.println(proportions);
-
-        return divideRegions(new Rectangle(width, height, 0, 0), proportions); 
-    }
-
-    private List<Rectangle> divideRegions(Rectangle mapRect, List<Double> proportions)
-    {
-
         List<Rectangle> regions = new ArrayList<Rectangle>();
-        for(Double proportion : proportions)
+
+        if(continentCount == 1)
         {
-            Rectangle region = createRegion(mapRect, proportion);
-            regions.add(region);
+            regions.add(new Rectangle(width, height, 0, 0));
         }
-
-        return regions;
-    }
-
-
-    private Rectangle createRegion(Rectangle mapRect, double proportion)
-    {
-       
-
-
-
-        return new Rectangle(subWidth, subHeight, mapRect.getStartX(), mapRect.getStartY());
-    }
-
-
-    private List<Double> generateProportions(int continentCount)
-    {
-        Random random = new Random();
-        List<Double> proportions = new ArrayList<Double>();
-        double remainder = 1.0;
-
-        for(int i = 0; i < continentCount; i++)
+        else if(continentCount == 2)
         {
-            double proportion = remainder * random.nextDouble();
-            proportions.add(proportion);
-            remainder -= proportion;
+            
+            if(Math.random() > .5) //vertical
+            {
+                regions.add(new Rectangle((width / 2), height, 0, 0));
+                regions.add(new Rectangle(width / 2, height, width / 2, 0));
+            }
+            else //horizontal
+            {
+                regions.add(new Rectangle(width, height/2, 0, 0));
+                regions.add(new Rectangle(width, height/2, 0, height/2));
+            }
         }
-
-        proportions.add(remainder);
-        return proportions;
+        else if(continentCount == 3)
+        {
+            double chance = Math.random();
+            if(chance < .25) //top big
+            {
+                regions.add(new Rectangle(width, height / 2, 0,0));
+                regions.add(new Rectangle(width / 2, height / 2, 0, height / 2));
+                regions.add(new Rectangle(width / 2, height / 2, width / 2, height / 2));
+            }
+            else if(chance >= .25 && chance < .5) //bottom big
+            {
+                regions.add(new Rectangle(width / 2, height / 2, 0, 0));
+                regions.add(new Rectangle(width / 2, height / 2, width / 2, 0));
+                regions.add(new Rectangle(width, height, 0, height / 2));
+            }
+            else if(chance >= .5 && chance < .75) //left big
+            {
+                regions.add(new Rectangle(width / 2, height, 0, 0));
+                regions.add(new Rectangle(width / 2, height / 2, width / 2, 0));
+                regions.add(new Rectangle(width / 2, height / 2, width / 2, height / 2));
+            }
+            else //right big
+            {
+                regions.add(new Rectangle(width / 2, height / 2, 0, 0));
+                regions.add(new Rectangle(width / 2, height / 2, 0, height / 2));
+                regions.add(new Rectangle(width / 2, height, width / 2, 0));
+            }
+        }
+        else if(continentCount == 4)
+        {
+            regions.add(new Rectangle(width/2, height/2, 0,0));
+            regions.add(new Rectangle(width/2, height/2, width/2,0));
+            regions.add(new Rectangle(width/2, height/2, width / 2,height /2));
+            regions.add(new Rectangle(width/2, height/2, 0,height / 2));
+        }    
+        return regions; 
     }
+
+    
 
     public Random getRandom() {
         return random;
