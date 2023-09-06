@@ -23,6 +23,10 @@ public class Mutator
             parameters.thetaStep = (random.nextDouble()*4 - 2);
             parameters.perlinStep = (random.nextDouble()*.4 - .2);
 
+            parameters.treeDepth = random.nextInt(2) - 1;
+            parameters.maxChildren = random.nextInt(2) - 1;
+            parameters.continentCount = random.nextInt(2) - 1;
+
             checkBounds(parameters);
         }
 
@@ -32,6 +36,34 @@ public class Mutator
     private static void checkBounds(TerrainParameters parameters)
     {
         Random random = new Random();
+        while(parameters.treeDepth < 1)
+        {
+            parameters.treeDepth += 1;
+        }
+        while(parameters.treeDepth > 5)
+        {
+            parameters.treeDepth -= 1;
+        }
+
+        
+        while(parameters.maxChildren < 3)
+        {
+            parameters.maxChildren += 1;
+        }
+        while(parameters.maxChildren > 5)
+        {
+            parameters.maxChildren -= 1;
+        }
+
+        while(parameters.continentCount < 2)
+        {
+            parameters.continentCount += 1;
+        }
+        while(parameters.continentCount > 5)
+        {
+            parameters.continentCount -= 1;
+        }
+
         while(parameters.frequency <= 0)
         {
             parameters.frequency += (random.nextDouble() * .02);

@@ -67,10 +67,11 @@ public class TerrainParameters
         this.perlinStep = Math.random() * 3;
         this.treeDepth = random.nextInt(3) + 2;
         this.maxChildren = random.nextInt(5);
-
         this.continentCount = (int)(random.nextInt(3)) + 2;
-        this.regions = generateRegions(continentCount);
 
+
+
+        this.regions = generateRegions(continentCount);
         for(int i = 0; i < regions.size(); i++)
         {
             if(regions.get(i).getWidth() == 0 || regions.get(i).getHeight() == 0)

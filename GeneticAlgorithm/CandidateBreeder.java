@@ -1,5 +1,8 @@
 package GeneticAlgorithm;
 
+import Drawing.WorldMapDrawer;
+import WorldMapGeneration.WorldMap;
+
 public class CandidateBreeder 
 {
     public static Candidate breed(Candidate parent1, 
@@ -7,7 +10,8 @@ public class CandidateBreeder
     {
         //blend formula: (param1*ranking/10 + param2*ranking2/10) / (ranking/10 + ranking2/10)
         //average? weighted blend?
-        TerrainParameters baby = new TerrainParameters();
+        TerrainParameters baby = new TerrainParameters(parent1.getParameters().getWidth(),
+            parent1.getParameters().getHeight());
         baby.frequency = blend(parent1.getParameters().frequency, parent1.getFitness(),
             parent2.getParameters().frequency, parent2.getFitness());
         
@@ -41,7 +45,7 @@ public class CandidateBreeder
         baby.perlinStep = blend(parent1.getParameters().perlinStep, parent1.getFitness(),
             parent2.getParameters().perlinStep, parent2.getFitness());
 
-        return new Candidate(baby, -1);
+        return new Candidate(baby, -1, WorldMapDrawer.drawWorldMap(new WorldMap(baby)));
     }
 
 
