@@ -4,10 +4,10 @@ import java.awt.image.BufferedImage;
 public class Candidate 
 {
     private TerrainParameters parameters;
-    private double fitness;
+    private int fitness;
     private BufferedImage img;
     
-    public Candidate(TerrainParameters param, double fit, BufferedImage pic)
+    public Candidate(TerrainParameters param, int fit, BufferedImage pic)
     {
         parameters = param;
         fitness = fit;
@@ -22,11 +22,11 @@ public class Candidate
         this.parameters = parameters;
     }
 
-    public double getFitness() {
+    public int getFitness() {
         return fitness;
     }
 
-    public void setFitness(double fitness) {
+    public void setFitness(int fitness) {
         this.fitness = fitness;
     }
 

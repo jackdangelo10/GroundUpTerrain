@@ -38,6 +38,7 @@ public class GUI
 
         //initialize the frame
         candidates = c;
+        System.out.println(c.size());
         ranked = new ArrayList<Boolean>();
         for(int i = 0; i < c.size(); i++)
         {
@@ -46,9 +47,7 @@ public class GUI
 
         f = new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setTitle("");
 		f.setBackground(Color.WHITE);
-        f.setVisible(true);
         f.setSize(500,500);
         f.setResizable(false);
 
@@ -128,6 +127,7 @@ public class GUI
         public void setImage(BufferedImage image)
         {
             img = image;
+            this.repaint();
         }
 
         @Override
@@ -156,6 +156,7 @@ public class GUI
         @Override
         public void actionPerformed(ActionEvent e)
         {
+            int rankedCount = 0;
             String command = e.getActionCommand();
             switch(command)
             {
@@ -166,12 +167,21 @@ public class GUI
                     currentIndex = (currentIndex + 1) % candidates.size();
                     break;
                 case "u":
-                    UpdateScript.update(candidates);
-                    for(int i = 0; i < ranked.size(); i++)
+                    if(rankedCount >= 10)
                     {
-                        ranked.set(i, false);
+                        candidates = UpdateScript.update(candidates);
+                        for(int i = 0; i < ranked.size(); i++)
+                        {
+                            ranked.set(i, false);
+                        }
+                        rankedCount = 0;
+                        imageArea.repaint();
                     }
-                    imageArea.repaint();
+                    else
+                    {
+                        System.out.println("Not all images have been ranked");
+                    }
+                    
                     break;
                 default:
                     try
@@ -179,6 +189,7 @@ public class GUI
                         int rank = Integer.parseInt(command);
                         candidates.get(currentIndex).setFitness(rank);
                         ranked.set(currentIndex, true);
+                        rankedCount++;
                     }
                     catch(NumberFormatException exception)
                     {
