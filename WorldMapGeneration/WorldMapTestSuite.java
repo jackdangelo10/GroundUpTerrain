@@ -12,6 +12,6 @@ public class WorldMapTestSuite
     {
         WorldMap map = WorldMapGenerator.generateWorldMap(new TerrainParameters(223, 101));
         BufferedImage img = WorldMapDrawer.drawWorldMap(map);
-        WriteToFile.writeToFile(img);
+        //WriteToFile.writeToFile(img);
     }
 }

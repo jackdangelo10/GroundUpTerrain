@@ -7,13 +7,13 @@ import javax.imageio.ImageIO;
 public class WriteToFile 
 {
 
-    public static void writeToFile(BufferedImage img)
+    public static void writeToFile(BufferedImage img, int count)
     {
         File f = null;
         try
         {
             //change filepath to whatever
-            f = new File("C:/Users/jackd/Desktop/GroundUpTerrain/Images/Image.png/");
+            f = new File("C:/Users/jackd/Desktop/GroundUpTerrain/Images/Image" + count + ".png/");
             ImageIO.write(img, "png", f);
 
         }

@@ -45,6 +45,7 @@ public class CandidateBreeder
         baby.perlinStep = blend(parent1.getParameters().perlinStep, parent1.getFitness(),
             parent2.getParameters().perlinStep, parent2.getFitness());
 
+        Mutator.mutate(baby);
         return new Candidate(baby, -1, WorldMapDrawer.drawWorldMap(new WorldMap(baby)));
     }
 

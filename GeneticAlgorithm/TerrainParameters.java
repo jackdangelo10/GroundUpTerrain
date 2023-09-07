@@ -66,7 +66,7 @@ public class TerrainParameters
         this.thetaStep = Math.random() * 45;
         this.perlinStep = Math.random() * 3;
         this.treeDepth = random.nextInt(3) + 2;
-        this.maxChildren = random.nextInt(5);
+        this.maxChildren = random.nextInt(5) + 1;
         this.continentCount = (int)(random.nextInt(3)) + 1;
 
 
@@ -78,17 +78,6 @@ public class TerrainParameters
             {
                 regions.remove(i);
             }
-        }
-
-        for(int i = 0; i < regions.size(); i++)
-        {
-            Rectangle subrectangle = regions.get(i);
-            System.out.println("Subrectangle " + (i + 1) + ":");
-            System.out.println("x: " + subrectangle.getStartX());
-            System.out.println("y: " + subrectangle.getStartY());
-            System.out.println("Width: " + subrectangle.getWidth());
-            System.out.println("Height: " + subrectangle.getHeight());
-            System.out.println();
         }
     }
 
