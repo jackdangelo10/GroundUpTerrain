@@ -34,8 +34,8 @@ public class UpdateScript
         for(int i = 0; i < 2; i++)
         {
             WorldMap map = WorldMapGenerator.generateWorldMap(new 
-                TerrainParameters(candidates.get(9).getParameters().getWidth(), 
-                    candidates.get(9).getParameters().getHeight()));
+                TerrainParameters(candidates.get(7).getParameters().getWidth(), 
+                    candidates.get(7).getParameters().getHeight()));
             BufferedImage img = WorldMapDrawer.drawWorldMap(map);
             WriteToFile.writeToFile(img, i);
             

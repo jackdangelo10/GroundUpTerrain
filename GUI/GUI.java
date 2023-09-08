@@ -101,6 +101,7 @@ public class GUI
 
 
         imageArea = new ImagePanel(candidates.get(0).getImg());
+        imageArea.repaint();
         f.add(imageArea, BorderLayout.CENTER);
     
     }
@@ -153,10 +154,11 @@ public class GUI
 
     public class ButtonListener implements ActionListener
     {
+
+        int rankedCount = 0;
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            int rankedCount = 0;
             String command = e.getActionCommand();
             switch(command)
             {
