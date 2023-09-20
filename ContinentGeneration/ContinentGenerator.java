@@ -24,7 +24,7 @@ public class ContinentGenerator
         int maxRadius = (int)(Math.floor(Math.sqrt(Math.pow(height, 2) 
             + Math.pow(width, 2))) / parameters.getMaxRadiusDivisor());
 
-        Continent c = new Continent(new Area());
+        Continent c = new Continent(new Area(), head);
         generateDepthFirstIsland(head, maxRadius, c);
         return c;
     }

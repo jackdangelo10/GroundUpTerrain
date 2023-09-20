@@ -13,7 +13,7 @@ public class WriteToFile
         try
         {
             //change filepath to whatever
-            f = new File("C:/Users/jackd/Desktop/TerrainGen/GroundUpTerrain/Images/Image" + count + ".png/");
+            f = new File("C:/Users/jackd/Desktop/playground/GroundUpTerrain/Images/Image" + count + ".png/");
             ImageIO.write(img, "png", f);
 
         }

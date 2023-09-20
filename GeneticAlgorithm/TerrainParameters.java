@@ -52,19 +52,56 @@ public class TerrainParameters
         generateParameters();
     }
 
+    
+
+    public TerrainParameters(double frequency, double amplitude, double persistence, int octave, long globalSeed,
+            int latticeCount, double maxRadiusDivisor, double maxRadiusDepthDivisor, double displacementModifier,
+            int treeDepth, int maxChildren, int continentCount, double thetaStep,
+            double perlinStep, int width, int height) {
+        this.frequency = frequency;
+        this.amplitude = amplitude;
+        this.persistence = persistence;
+        this.octave = octave;
+        this.globalSeed = globalSeed;
+        this.latticeCount = latticeCount;
+        this.maxRadiusDivisor = maxRadiusDivisor;
+        this.maxRadiusDepthDivisor = maxRadiusDepthDivisor;
+        this.displacementModifier = displacementModifier;
+        this.treeDepth = treeDepth;
+        this.maxChildren = maxChildren;
+        this.continentCount = continentCount;
+        this.thetaStep = thetaStep;
+        this.perlinStep = perlinStep;
+        this.width = width;
+        this.height = height;
+
+        System.out.println("above Generate Regions");
+        this.regions = generateRegions(continentCount);
+        System.out.println("got below Generate Regions");
+        for(int i = 0; i < regions.size(); i++)
+        {
+            if(regions.get(i).getWidth() == 0 || regions.get(i).getHeight() == 0)
+            {
+                regions.remove(i);
+            }
+        }
+    }
+
+
+
     private void generateParameters()
     {
-        this.frequency = Math.random();
+        this.frequency = 15 + random.nextInt(3) - 1.5;
         this.amplitude = Math.random()*6 + 1;
-        this.persistence = Math.random();
-        this.octave = (int)(Math.random() * 10) + 1;
+        this.persistence = +.02 + Math.random()*.005 - .0025;
+        this.octave = (int)(Math.random() * 6) + 4 ;
         this.globalSeed = (long)(Math.random()*1000);
         this.latticeCount = (int)(Math.random()*512 + 256);
-        this.maxRadiusDivisor = (Math.random()*8 + 1);
+        this.maxRadiusDivisor = (Math.random()*1.2  +.3);
         this.maxRadiusDepthDivisor = Math.random()*3 + .9;
         this.displacementModifier = Math.random()*6 - 1;
-        this.thetaStep = Math.random() * 45;
-        this.perlinStep = Math.random() * 3;
+        this.thetaStep = Math.random() * 15 + 5;
+        this.perlinStep = Math.random() * .9 +.1;
         this.treeDepth = random.nextInt(3) + 2;
         this.maxChildren = random.nextInt(5) + 1;
         this.continentCount = (int)(random.nextInt(3)) + 1;
@@ -83,6 +120,7 @@ public class TerrainParameters
 
     private List<Rectangle> generateRegions(int continentCount)
     {
+        System.out.println("in generateRegions");
         List<Rectangle> regions = new ArrayList<Rectangle>();
 
         if(continentCount == 1)

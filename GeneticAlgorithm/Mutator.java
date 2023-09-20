@@ -11,18 +11,16 @@ public class Mutator
         Random random = new Random();
         if(random.nextDouble() < MUTATION_RATE)
         {
-            parameters.frequency += (random.nextDouble() * .02 - .01);
-            parameters.amplitude += (random.nextDouble() * .2 - .1);
+            parameters.frequency += (Math.random()*8 - 4);
+            parameters.amplitude += (random.nextDouble() * 1 - .5);
             parameters.persistence += (random.nextDouble() * .02 - .01);
             parameters.octave += (random.nextInt(2) - 1);
-            parameters.globalSeed += (random.nextInt(6) - 3);
             parameters.latticeCount += (random.nextInt(6) - 3);
-            parameters.maxRadiusDivisor += (random.nextDouble() - .5);
-            parameters.maxRadiusDepthDivisor += (random.nextDouble()*.1 - .5);
+            parameters.maxRadiusDivisor += (random.nextDouble() - .25);
+            parameters.maxRadiusDepthDivisor += (random.nextDouble()*.1 - .25);
             parameters.displacementModifier += (random.nextDouble() - .5);
-            parameters.thetaStep = (random.nextDouble()*4 - 2);
+            parameters.thetaStep = (random.nextDouble()*3 - 1.5);
             parameters.perlinStep = (random.nextDouble()*.4 - .2);
-
             parameters.treeDepth = random.nextInt(2) - 1;
             parameters.maxChildren = random.nextInt(2) - 1;
             parameters.continentCount = random.nextInt(2) - 1;
