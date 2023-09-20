@@ -5,25 +5,26 @@ import java.util.Random;
 public class Mutator 
 {
     private final static double MUTATION_RATE = .1;
+    private static Random random = new Random();
 
     public static void mutate(TerrainParameters parameters)
     {
         Random random = new Random();
         if(random.nextDouble() < MUTATION_RATE)
         {
-            parameters.frequency += (Math.random()*8 - 4);
-            parameters.amplitude += (random.nextDouble() * 1 - .5);
-            parameters.persistence += (random.nextDouble() * .02 - .01);
-            parameters.octave += (random.nextInt(2) - 1);
-            parameters.latticeCount += (random.nextInt(6) - 3);
-            parameters.maxRadiusDivisor += (random.nextDouble() - .25);
-            parameters.maxRadiusDepthDivisor += (random.nextDouble()*.1 - .25);
-            parameters.displacementModifier += (random.nextDouble() - .5);
-            parameters.thetaStep = (random.nextDouble()*3 - 1.5);
-            parameters.perlinStep = (random.nextDouble()*.4 - .2);
-            parameters.treeDepth = random.nextInt(2) - 1;
-            parameters.maxChildren = random.nextInt(2) - 1;
-            parameters.continentCount = random.nextInt(2) - 1;
+            parameters.frequency += random.nextDouble(.02) - .01; //-.01 to .01
+            parameters.amplitude += random.nextDouble(.2) - .1; //-.1 to .1
+            parameters.persistence += random.nextDouble(.01) - .005; //-.005 to 0.005
+            parameters.octave += random.nextDouble(2) - 1; //-1 to 1
+            parameters.latticeCount += 
+            parameters.maxRadiusDivisor += 
+            parameters.maxRadiusDepthDivisor += 
+            parameters.displacementModifier += 
+            parameters.thetaStep += 
+            parameters.perlinStep += 
+            parameters.treeDepth += 
+            parameters.maxChildren += 
+            parameters.continentCount += 
 
             checkBounds(parameters);
         }

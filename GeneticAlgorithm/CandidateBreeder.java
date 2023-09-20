@@ -11,7 +11,7 @@ public class CandidateBreeder
         //blend formula: (param1*ranking/10 + param2*ranking2/10) / (ranking/10 + ranking2/10)
         //average? weighted blend?
         TerrainParameters baby = new TerrainParameters(parent1.getParameters().getWidth(),
-            parent1.getParameters().getHeight());
+            parent1.getParameters().getHeight(), 1001);
 
             
         baby.frequency = blend(parent1.getParameters().frequency, parent2.getParameters().frequency);

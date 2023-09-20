@@ -4,6 +4,6 @@ public class ParameterTestSuite
 {
     public static void main(String[] args) 
     {
-        TerrainParameters parameters = new TerrainParameters(71, 121);
+        TerrainParameters parameters = new TerrainParameters(71, 121, 1001);
     }
 }

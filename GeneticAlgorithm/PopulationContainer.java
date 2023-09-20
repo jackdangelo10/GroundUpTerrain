@@ -14,12 +14,12 @@ public class PopulationContainer
 {
     List<Candidate> population = new ArrayList<Candidate>();
 
-    public void generatePopulation(int size)
+    public void generatePopulation(int size, int s)
     {
         for(int i = 0; i < size; i++)
         {
             WorldMap map = WorldMapGenerator.generateWorldMap(new 
-                TerrainParameters(223, 101));
+                TerrainParameters(223, 101, s));
             BufferedImage img = WorldMapDrawer.drawWorldMap(map);
             WriteToFile.writeToFile(img, i);
             

@@ -45,11 +45,14 @@ public class TerrainParameters
     public int width = 0;
     public int height = 0;
 
-    public TerrainParameters(int w, int h) 
+    public TerrainParameters(int w, int h, int seed) 
     {
         width = w;
         height = h;
         generateParameters();
+        globalSeed = seed;
+
+
     }
 
     
@@ -91,21 +94,20 @@ public class TerrainParameters
 
     private void generateParameters()
     {
-        this.frequency = 15 + random.nextInt(3) - 1.5;
-        this.amplitude = Math.random()*6 + 1;
-        this.persistence = +.02 + Math.random()*.005 - .0025;
-        this.octave = (int)(Math.random() * 6) + 4 ;
-        this.globalSeed = (long)(Math.random()*1000);
-        this.latticeCount = (int)(Math.random()*512 + 256);
-        this.maxRadiusDivisor = (Math.random()*1.2  +.3);
-        this.maxRadiusDepthDivisor = Math.random()*3 + .9;
-        this.displacementModifier = Math.random()*6 - 1;
-        this.thetaStep = Math.random() * 15 + 5;
-        this.perlinStep = Math.random() * .9 +.1;
-        this.treeDepth = random.nextInt(3) + 2;
-        this.maxChildren = random.nextInt(5) + 1;
-        this.continentCount = (int)(random.nextInt(3)) + 1;
-
+        
+        this.frequency = random.nextDouble(.2) + .35; //.35 to .65
+        this.amplitude = random.nextDouble(2) + 11; //11 to 13
+        this.persistence = random.nextDouble(.04) + .08; //.08 to .12
+        this.octave = random.nextInt(4) + 4; //4 to 8
+        this.latticeCount = random.nextInt(448) + 64;
+        this.maxRadiusDivisor =  random.nextDouble(.2) + .9; //.9 to 1.1
+        this.maxRadiusDepthDivisor = random.nextDouble(.2) + 1.1; //1.1 to 1.3
+        this.displacementModifier = random.nextDouble(2) + 1;
+        this.thetaStep = random.nextDouble(6) + 12; //12 to 18
+        this.perlinStep = random.nextDouble(.2) + .8; //.8 to 1
+        this.treeDepth = random.nextInt(2) + 1;//1 to 3
+        this.maxChildren = random.nextInt(2) + 1;//1 to 3
+        this.continentCount = random.nextInt(3) + 1;//1 to 4
 
 
         this.regions = generateRegions(continentCount);
