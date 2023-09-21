@@ -3,6 +3,8 @@ package WorldMapGeneration;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.Style;
+
 import ContinentGeneration.Continent;
 import GeneticAlgorithm.TerrainParameters;
 
@@ -19,6 +21,14 @@ public class WorldMap
     public void addContinent(Continent c)
     {
         continents.add(c);
+    }
+
+    public void print()
+    {
+        for(Continent c: continents)
+        {
+            System.out.println(c.getHead().getX() + " " + c.getHead().getY());
+        }
     }
 
     public List<Continent> getContinents() {

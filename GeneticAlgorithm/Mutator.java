@@ -9,25 +9,28 @@ public class Mutator
 
     public static void mutate(TerrainParameters parameters)
     {
-        Random random = new Random();
-        if(random.nextDouble() < MUTATION_RATE)
+        if(Math.random() < .05)
         {
-            parameters.frequency += random.nextDouble(.02) - .01; //-.01 to .01
-            parameters.amplitude += random.nextDouble(.2) - .1; //-.1 to .1
-            parameters.persistence += random.nextDouble(.01) - .005; //-.005 to 0.005
-            parameters.octave += random.nextDouble(2) - 1; //-1 to 1
-            parameters.latticeCount += 
-            parameters.maxRadiusDivisor += 
-            parameters.maxRadiusDepthDivisor += 
-            parameters.displacementModifier += 
-            parameters.thetaStep += 
-            parameters.perlinStep += 
-            parameters.treeDepth += 
-            parameters.maxChildren += 
-            parameters.continentCount += 
+            if(random.nextDouble() < MUTATION_RATE)
+            {
+                parameters.frequency += random.nextDouble(.02) - .01; //-.01 to .01
+                parameters.amplitude += random.nextDouble(.2) - .1; //-.1 to .1
+                parameters.persistence += random.nextDouble(.01) - .005; //-.005 to 0.005
+                parameters.octave += random.nextDouble(2) - 1; //-1 to 1
+                parameters.latticeCount += random.nextDouble(20) - 10;//-10 to 10
+                parameters.maxRadiusDivisor += random.nextDouble(.01) - .005;//-.005 to .005
+                parameters.maxRadiusDepthDivisor += random.nextDouble(.004) - .002;//-.002 to .002 
+                parameters.displacementModifier += random.nextDouble(.1) - .05;//-.05 to .05
+                parameters.thetaStep += random.nextDouble(.4) -.2;//-.2 to .2
+                parameters.perlinStep += random.nextDouble(.004) - .002;//-.002 to .002
+                parameters.treeDepth += random.nextInt(2) - 1;
+                parameters.maxChildren += random.nextInt(2) - 1;
+                parameters.continentCount += random.nextInt(2) - 1;
 
-            checkBounds(parameters);
+                checkBounds(parameters);
+            }
         }
+        
 
     }
 

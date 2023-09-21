@@ -29,6 +29,8 @@ public class GUI
 
     private List<Candidate> candidates = null;
     private List<Boolean> ranked = null;
+    private List<Integer> chosen = new ArrayList<Integer>();
+    private List<JButton> buttons = new ArrayList<JButton>();
 
     //update button will make images "die", or be removed from list
     //will also have a reproduction chance between higher ranked candidates
@@ -72,11 +74,16 @@ public class GUI
         updateButton.addActionListener(b);
         updateButton.setActionCommand("u");
 
+        JButton checkoutButton = new JButton("Checkout");
+        checkoutButton.addActionListener(b);
+        checkoutButton.setActionCommand("c");
+
 
         //formatting buttons in button area
         rightArea.add(rightButton);
         leftArea.add(leftButton);
         updateArea.add(updateButton);
+        updateArea.add(checkoutButton);
 
         f.add(rightArea, BorderLayout.EAST);
         f.add(leftArea, BorderLayout.WEST);
@@ -91,6 +98,7 @@ public class GUI
             JButton ranking = new JButton("" + (i + 1));
             ranking.addActionListener(b);
             ranking.setActionCommand("" + (i + 1));
+            buttons.add(ranking);
             rankingArea.add(ranking);
         }
 
@@ -169,29 +177,33 @@ public class GUI
                     currentIndex = (currentIndex + 1) % candidates.size();
                     break;
                 case "u":
-                    if(rankedCount >= 10)
+                    if(ranked.contains(false))
                     {
-                        candidates = UpdateScript.update(candidates);
-                        for(int i = 0; i < ranked.size(); i++)
-                        {
-                            ranked.set(i, false);
-                        }
-                        rankedCount = 0;
-                        imageArea.repaint();
+                        System.out.println("Not all images have been ranked");
+                        break;
                     }
                     else
                     {
-                        System.out.println("Not all images have been ranked");
+                        candidates = UpdateScript.update(candidates);
+                        imageArea.repaint();
                     }
                     
                     break;
+
+                case "c":
+                    
                 default:
                     try
                     {
                         int rank = Integer.parseInt(command);
-                        candidates.get(currentIndex).setFitness(rank);
-                        ranked.set(currentIndex, true);
-                        rankedCount++;
+                        if(!chosen.contains(rank))
+                        {
+                            candidates.get(currentIndex).setFitness(rank);
+                            buttons.get(rank - 1).setBackground(Color.RED);
+                            ranked.set(currentIndex, true);
+                            chosen.add(rank);
+                            rankedCount++;
+                        }  
                     }
                     catch(NumberFormatException exception)
                     {

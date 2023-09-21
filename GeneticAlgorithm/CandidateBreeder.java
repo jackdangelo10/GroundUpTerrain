@@ -1,7 +1,11 @@
 package GeneticAlgorithm;
 
+import java.awt.image.BufferedImage;
+
 import Drawing.WorldMapDrawer;
+import Files.WriteToFile;
 import WorldMapGeneration.WorldMap;
+import WorldMapGeneration.WorldMapGenerator;
 
 public class CandidateBreeder 
 {
@@ -38,7 +42,11 @@ public class CandidateBreeder
 
         Mutator.mutate(baby);
 
-        return new Candidate(baby, -1, WorldMapDrawer.drawWorldMap(new WorldMap(baby)));
+        WorldMap map = WorldMapGenerator.generateWorldMap(baby);
+        map.print();
+        BufferedImage img = WorldMapDrawer.drawWorldMap(map);
+        WriteToFile.writeToFile(img, Math.random());
+        return new Candidate(baby, -1, img);
     }
 
 

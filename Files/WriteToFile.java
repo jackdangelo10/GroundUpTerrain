@@ -4,10 +4,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
+import GeneticAlgorithm.TerrainParameters;
+
 public class WriteToFile 
 {
 
-    public static void writeToFile(BufferedImage img, int count)
+    public static void writeToFile(BufferedImage img, double count)
     {
         File f = null;
         try
@@ -21,5 +23,10 @@ public class WriteToFile
         {
             System.out.println(e);
         }
+    }
+
+    public static void checkoutParameters(TerrainParameters param)
+    {
+        
     }
 }

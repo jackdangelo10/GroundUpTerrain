@@ -109,7 +109,6 @@ public class TerrainParameters
         this.maxChildren = random.nextInt(2) + 1;//1 to 3
         this.continentCount = random.nextInt(3) + 1;//1 to 4
 
-
         this.regions = generateRegions(continentCount);
         for(int i = 0; i < regions.size(); i++)
         {
