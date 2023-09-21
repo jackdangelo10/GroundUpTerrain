@@ -10,6 +10,6 @@ public class GUITestSuite
         PopulationContainer p = new PopulationContainer();
         p.generatePopulation(10, 1001);
     
-        GUI g = new GUI(p.getCandidates());
+        ImageRankingGUI g = new ImageRankingGUI(p.getCandidates());
     }
 }

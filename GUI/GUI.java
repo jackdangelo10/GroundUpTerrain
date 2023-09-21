@@ -8,12 +8,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Files.WriteToFile;
 import GeneticAlgorithm.Candidate;
 import GeneticAlgorithm.UpdateScript;
 
@@ -28,8 +30,8 @@ public class GUI
     private int currentIndex = 0;
 
     private List<Candidate> candidates = null;
-    private List<Boolean> ranked = null;
-    private List<Integer> chosen = new ArrayList<Integer>();
+
+
     private List<JButton> buttons = new ArrayList<JButton>();
 
     //update button will make images "die", or be removed from list
@@ -41,12 +43,6 @@ public class GUI
         //initialize the frame
         candidates = c;
         System.out.println(c.size());
-        ranked = new ArrayList<Boolean>();
-        for(int i = 0; i < c.size(); i++)
-        {
-            ranked.add(false);
-        }
-
         f = new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setBackground(Color.WHITE);
@@ -96,6 +92,7 @@ public class GUI
         for(int i = 0; i < 10; i++)
         {
             JButton ranking = new JButton("" + (i + 1));
+            ranking.setBackground(Color.LIGHT_GRAY);
             ranking.addActionListener(b);
             ranking.setActionCommand("" + (i + 1));
             buttons.add(ranking);
@@ -147,9 +144,7 @@ public class GUI
             {
                 g.drawImage(img, 0, 0, this);
                 g.setColor(Color.PINK);
-                g.drawString("Ranked: " + ranked.get(currentIndex), 10, 
-                    candidates.get(currentIndex).getParameters().getHeight() + 20);
-                g.drawString("Ranking: " + candidates.get(currentIndex).getFitness(), 10, 
+                g.drawString("Ranking: " + (currentIndex + 1), 10, 
                     candidates.get(currentIndex).getParameters().getHeight() + 40);
             }
             else
@@ -163,7 +158,6 @@ public class GUI
     public class ButtonListener implements ActionListener
     {
 
-        int rankedCount = 0;
         @Override
         public void actionPerformed(ActionEvent e)
         {
@@ -177,33 +171,26 @@ public class GUI
                     currentIndex = (currentIndex + 1) % candidates.size();
                     break;
                 case "u":
-                    if(ranked.contains(false))
-                    {
-                        System.out.println("Not all images have been ranked");
-                        break;
-                    }
-                    else
-                    {
-                        candidates = UpdateScript.update(candidates);
-                        imageArea.repaint();
-                    }
+                    ///
+                    
+                    candidates = UpdateScript.update(candidates);
+                    imageArea.repaint();
                     
                     break;
 
                 case "c":
-                    
+                    WriteToFile.checkoutParameters(
+                        candidates.get(currentIndex).getParameters());
                 default:
                     try
                     {
+
+                        //gets input number
                         int rank = Integer.parseInt(command);
-                        if(!chosen.contains(rank))
-                        {
-                            candidates.get(currentIndex).setFitness(rank);
-                            buttons.get(rank - 1).setBackground(Color.RED);
-                            ranked.set(currentIndex, true);
-                            chosen.add(rank);
-                            rankedCount++;
-                        }  
+                        Collections.swap(candidates, currentIndex, rank - 1);
+
+                        imageArea.repaint();
+                        break;
                     }
                     catch(NumberFormatException exception)
                     {
